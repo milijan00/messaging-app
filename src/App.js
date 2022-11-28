@@ -3,17 +3,17 @@ import './App.css';
 import Header from "./features/header/Header";
 import Footer from "./features/footer/Footer";
 import { Route, Routes } from 'react-router-dom';
-
-        /*<Routes>
-          <Route path="/" element={<Home/>}/> 
-          <Route path="/registration" element={<Palettes />}/> 
-          </Routes> 
-          */
+import Home from "./features/home/Home";
+          
 function App() {
   return (
       <>
       <Header/>
-      { /*include Routing code once  Home component is written.*/}
+      <section className="container mx-auto py-4 vh90">
+        <Routes>
+          <Route path="/" element={<Home/>}/> 
+        </Routes> 
+      </section>
       <Footer/>
       </>
   );
