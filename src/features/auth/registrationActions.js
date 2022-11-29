@@ -27,4 +27,4 @@ export  const onCityChange = (state, action)=>{
     state.registrationData.idCity = action.payload;
 };
 
- ;
+ 
