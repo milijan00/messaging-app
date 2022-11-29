@@ -1,5 +1,15 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+    onCityChange,
+    onCountryChange,
+    onRegPasswordChange,
+    onRegPasswordAgainChange,
+    onRegEmailChange,
+    onFirstnameChange,
+    onLastnameChange
+} from "./registrationActions";
+
 const initialState = {
 	authenticated: false,
 	accessToken : "",
@@ -7,7 +17,18 @@ const initialState = {
 	email : "",
 	password : "",
 	status : "idle",
-	error :"" 
+	error :"" ,
+    registerStatus : "idle",
+    registerError : "",
+    registrationData : {
+        firstname : "",
+        lastname : "",
+        email : "",
+        password : "",
+        passwordAgain : "",
+        idCountry : 0,
+        idCity : 0
+    }
 };
 
 const url = "http://localhost:8888/auth";
@@ -20,6 +41,15 @@ export const authenticate = createAsyncThunk("auth/authenticate", async(data)=>{
 	}
 });
 
+export const registerUser = createAsyncThunk("auth/register", async(data)=>{
+    try{
+        const result =  await axios.post("http://localhost:8888/user/", data);
+        return result.status;
+    }
+    catch(err){
+        return err.message;
+    }
+});
 const authSlice = createSlice({
 	name : "auth",
 	initialState,
@@ -29,7 +59,14 @@ const authSlice = createSlice({
 		},
 		onChangePassword(state, action){
 			state.password = action.payload;
-		}
+		},
+        onFirstnameChange,
+        onLastnameChange,
+        onRegEmailChange,
+        onRegPasswordChange,
+        onRegPasswordAgainChange,
+        onCountryChange,
+        onCityChange
 	},
 	extraReducers(builder){
 		builder
@@ -43,7 +80,20 @@ const authSlice = createSlice({
 		.addCase(authenticate.rejected, (state, action)=>{
 			state.status ="failed";
 			state.error = action.error.message;
-		})
+		});
+
+        builder.addCase(registerUser.pending, (state, action)=>{
+            state.registerStatus = "loading";
+
+        })
+        .addCase(registerUser.fulfilled, (state, action)=>{
+            state.registerStatus = "succeeded";
+
+        })
+        .addCase(registerUser.rejected, (state, action)=>{
+            state.registerStatus = "failed";
+            state.registerError = action.error.message;
+        });
 	}
 
 }) ;
@@ -55,3 +105,4 @@ export const authActions = authSlice.actions;
 
 export const statusSelector = state => state.auth.state;
 export const errorSelector =  state=> state.auth.error;
+export const regDataSelector = state=> state.auth.registrationData;
