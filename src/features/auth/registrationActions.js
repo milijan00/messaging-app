@@ -21,6 +21,7 @@ export   const onRegPasswordAgainChange = (state, action) =>{
 
 export   const onCountryChange = (state, action)=>{
     state.registrationData.idCountry = action.payload;
+    state.registrationData.idCity = 0;
 };
 
 export  const onCityChange = (state, action)=>{

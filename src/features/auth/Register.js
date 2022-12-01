@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {authActions, regDataSelector} from "./authSlice";
+import {authActions, regDataSelector, registerUser} from "./authSlice";
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {countryStateSelector, getCountries, countriesSelector} from "../country/countrySlice";
@@ -22,20 +22,38 @@ export default function Register(props){
 
     const onCountryChange = (id)=>{
 			try{
-				if(1){// validation
+				if(countryState == "idle"){// validation
 					dispatch(getCities(id)).unwrap();
 				}
 			}catch(err){
 				console.error(err);
 			}
     }
+    const onSubmit = ()=>{
+        try{
+            if(1){// validation
+                //dispatch(getCities(id)).unwrap();
+                dispatch(registerUser({
+                    firstname,
+                    lastname,
+                    email,
+                    password,
+                    passwordAgain,
+                    idCity
+                })).unwrap();
+                dispatch(authActions.clearForm());
+            }
+        }catch(err){
+            console.error(err);
+        }
+    };
     return (
         <section>
             <article>
                 <h1>Create a new account</h1>
             </article>
             <article>
-                <form method="POST" action="#" name="registerForm" >
+                <form method="POST" action="#" name="registerForm" onSubmit={(e)=>{e.preventDefault(); onSubmit();}}>
                     <section className="row">
                         <article className="col-12 mb-3">
                             <input type="text" className="form-control" placeholder="First name" value={firstname} onChange={(e)=> dispatch(authActions.onFirstnameChange(e.target.value))}/>
@@ -53,8 +71,8 @@ export default function Register(props){
                             <input type="password" className="form-control" placeholder="Password again" value={passwordAgain} onChange={(e)=> dispatch(authActions.onRegPasswordAgainChange(e.target.value))}/>
                         </article> 
                         <article className="col-12 mb-3">
-                            <select className="form-control" onChange={(e)=>onCountryChange(e.target.value)}>
-                                <option >Choose a country</option>
+                            <select className="form-control" value={idCountry} onChange={(e)=>{dispatch(authActions.onCountryChange(e.target.value));  onCountryChange(e.target.value); }} >
+                                <option value="0">Choose a country</option>
                                 {countries.map((el, index)=>{
                                     return (
                                         <option value={el.id} key={index}>{el.name}</option>
@@ -63,8 +81,8 @@ export default function Register(props){
                             </select>
                         </article> 
                         <article className="col-12 mb-3">
-                            <select className="form-control" >
-                                <option >Choose a city</option>
+                            <select className="form-control"  value={idCity} onChange={(e)=> dispatch(authActions.onCityChange(e.target.value))}>
+                                <option value="0">Choose a city</option>
                                 {cities.map((el, index)=>{
                                     return (
                                         <option value={el.id} key={index}>{el.name}</option>

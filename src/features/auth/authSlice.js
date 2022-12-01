@@ -43,7 +43,7 @@ export const authenticate = createAsyncThunk("auth/authenticate", async(data)=>{
 
 export const registerUser = createAsyncThunk("auth/register", async(data)=>{
     try{
-        const result =  await axios.post("http://localhost:8888/user/", data);
+        const result =  await axios.post("http://localhost:8888/users/", data);
         return result.status;
     }
     catch(err){
@@ -66,7 +66,16 @@ const authSlice = createSlice({
         onRegPasswordChange,
         onRegPasswordAgainChange,
         onCountryChange,
-        onCityChange
+        onCityChange,
+        clearForm(state){
+            state.registrationData.firstname = "";
+            state.registrationData.lastname = "";
+            state.registrationData.email = "";
+            state.registrationData.password = "";
+            state.registrationData.passwordAgain = "";
+            state.registrationData.idCountry = 0;
+            state.registrationData.idCity = 0;
+        }
 	},
 	extraReducers(builder){
 		builder
