@@ -69,6 +69,10 @@ const authSlice = createSlice({
         onRegPasswordAgainChange,
         onCountryChange,
         onCityChange,
+        clearLoginForm(state){
+            state.email = "";
+            state.password = "";
+        },
         clearForm(state){
             state.registrationData.firstname = "";
             state.registrationData.lastname = "";
@@ -83,6 +87,12 @@ const authSlice = createSlice({
         },
         onResetLoginErrors(state){
             state.loginErrors = {};
+        },
+        onAppendRegError(state, action){
+            state.registrationErrors[action.payload.key] = action.payload.value;
+        },
+        onResetRegErrors(state){
+            state.registrationErrors = {};
         }
 	},
 	extraReducers(builder){

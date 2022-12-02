@@ -15,7 +15,7 @@ body {
 }
 
 .vh90{
-    height: 90vh;
+    min-height: 90vh;
 }
 .btn.btn-green{
     background-color: #339966;

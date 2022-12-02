@@ -29,11 +29,12 @@ class Validation{
     static errorMessages = {
         email: "At least 5 and maximum 100 characters. It has to contain @ character",
         password: "At least one letter and number. Minimum length is 8 and maximum is 16.",
-        passwordAgain: "At least one letter and number. Minimum length is 8 and maximum is 16.",
         firstname : "No numbers, no special characters, first letter is capitalized." ,
         lastname : "No numbers, no special characters, first letter is capitalized." ,
         username : "At least 3 characters and maximum is 20." ,
         role : "At least 2 characters and maximum is 19." ,
+        country : "Country is required.",
+        city : "City is required.",
     };
     
     static result = new ValidationResult();
@@ -83,6 +84,21 @@ class Validation{
         }
         Validation.result.appendError("passwordAgain", Validation.errorMessages.password);
         return false;
+    }
+
+    static validCountry(val){
+        if(val > 0) {
+            return true;
+        }
+        Validation.result.appendError("country", Validation.errorMessages.country);
+        return false;
+    }
+
+    static validCity(val){
+        if(val > 0) {
+            return true;
+        }
+        Validation.result.appendError("city", Validation.errorMessages.city);
         return false;
     }
 }

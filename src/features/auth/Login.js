@@ -26,6 +26,7 @@ export default function Login(props){
             if(Validation.result.valid()){
                 dispatch(authenticate({email, password})).unwrap();
                 dispatch(authActions.onResetLoginErrors());
+                dispatch(authActions.clearLoginForm());
             }
         }catch(err){
             console.error(err);
