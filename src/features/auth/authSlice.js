@@ -14,6 +14,8 @@ const initialState = {
 	authenticated: false,
 	accessToken : "",
 	refreshToken : "",
+    loginErrors : {},
+    registrationErrors : {},
 	email : "",
 	password : "",
 	status : "idle",
@@ -75,6 +77,12 @@ const authSlice = createSlice({
             state.registrationData.passwordAgain = "";
             state.registrationData.idCountry = 0;
             state.registrationData.idCity = 0;
+        },
+        onAppendLoginError(state, action){
+            state.loginErrors[action.payload.key] = action.payload.value;
+        },
+        onResetLoginErrors(state){
+            state.loginErrors = {};
         }
 	},
 	extraReducers(builder){
@@ -115,3 +123,5 @@ export const authActions = authSlice.actions;
 export const statusSelector = state => state.auth.state;
 export const errorSelector =  state=> state.auth.error;
 export const regDataSelector = state=> state.auth.registrationData;
+export const loginErrorsSelector = state => state.auth.loginErrors;
+export const registrationErrorsSelector = state => state.auth.registrationErrors;
