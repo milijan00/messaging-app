@@ -29,6 +29,7 @@ export default function Register(props){
 				console.error(err);
 			}
     }
+
     const onSubmit = ()=>{
         try{
             if(1){// validation
@@ -47,6 +48,7 @@ export default function Register(props){
             console.error(err);
         }
     };
+
     return (
         <section>
             <article>
