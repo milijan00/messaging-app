@@ -4,7 +4,7 @@ import {navReducer} from "../features/header/headerSlice";
 import { authReducer } from '../features/auth/authSlice';
 import {countryReducer} from "../features/country/countrySlice.js";
 import {cityReducer} from "../features/city/citySlice.js";
-
+import {inboxReducer} from "../features/inbox/inboxSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +12,7 @@ export const store = configureStore({
     nav : navReducer,
     auth : authReducer,
     country : countryReducer,
-    city : cityReducer
+    city : cityReducer,
+    inbox : inboxReducer
   },
 });

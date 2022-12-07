@@ -11,9 +11,7 @@ import {
 } from "./registrationActions";
 
 const initialState = {
-	authenticated: false,
-	accessToken : "",
-	refreshToken : "",
+    token : localStorage.getItem("access"),
     loginErrors : {},
     registrationErrors : {},
 	email : "",
@@ -93,6 +91,10 @@ const authSlice = createSlice({
         },
         onResetRegErrors(state){
             state.registrationErrors = {};
+        },
+        logout(state){
+            localStorage.removeItem("access");
+            state.token = null;
         }
 	},
 	extraReducers(builder){
@@ -103,6 +105,7 @@ const authSlice = createSlice({
 		.addCase(authenticate.fulfilled, (state, action)=>{
 			state.status ="succeeded";
 			localStorage.setItem("access", action.payload.accessToken);
+            state.token = action.payload.accessToken;
 		})
 		.addCase(authenticate.rejected, (state, action)=>{
 			state.status ="failed";
@@ -125,6 +128,7 @@ const authSlice = createSlice({
 
 }) ;
 
+export const tokenSelector = state => state.auth.token;
 export const authReducer = authSlice.reducer;
 export const emailSelector = state=> state.auth.email;
 export const passwordSelector = state=> state.auth.password;
