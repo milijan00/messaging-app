@@ -1,0 +1,6 @@
+#messages {
+	border: 1px solid #339966;
+}
+#messages-collection{
+	min-height: 100vh
+}

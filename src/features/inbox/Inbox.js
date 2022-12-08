@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, Navigate } from "react-router-dom";
+import ChatRoom from "./ChatRoom";
 
 import token from "../../core/token";
 
@@ -12,11 +13,10 @@ export default function Inbox(){
         );
     }
     return (
-        <section className="row">
+        <section className="row my-2">
             <article className="col-5 bg-light py-3" >
             </article>
-            <article className="col-7 py-3">
-            </article>
+            <ChatRoom/>
         </section>
     );
 }

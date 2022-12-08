@@ -2,8 +2,14 @@ import {createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {getFollowers, getMessages, createMessage} from "./inboxThunk";
 
 const initialState = {
-    followers : [],
-    messages : [],
+    followers : [
+        {firstname : "Pera", lastName: "Peric", id:2},
+        {firstname : "Milos", lastName: "Lekic", id:3}
+    ],
+    messages : [
+        {content: "This is one message1", senderId: 1, receiverId: 2},
+        {content: "This is one message2", senderId: 2, receiverId: 1},
+    ],
     message : "",
     senderId : 0,
     receiverId : 0,
