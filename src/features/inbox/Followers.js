@@ -12,7 +12,7 @@ export default function Followers(props){
 				</article>
 				{followers.map((el, index)=>{
 					return (
-						<article key={index} className="w-100 p-2  green-backcolor text-white contact">
+						<article key={index} className="w-100 p-2  green-backcolor text-white contact pointer">
 							<h3 >{el.firstname} {el.lastname}</h3>
 						</article>
 					);
