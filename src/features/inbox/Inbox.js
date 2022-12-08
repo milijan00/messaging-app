@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Navigate } from "react-router-dom";
 import ChatRoom from "./ChatRoom";
-
+import Followers from "./Followers";
 import token from "../../core/token";
 
 export default function Inbox(){
@@ -14,8 +14,7 @@ export default function Inbox(){
     }
     return (
         <section className="row my-2">
-            <article className="col-5 bg-light py-3" >
-            </article>
+            <Followers/>
             <ChatRoom/>
         </section>
     );
