@@ -22,7 +22,8 @@ export const getFollowers = createAsyncThunk("inbox/getfollowers", async()=>{
 
 export const getMessages = createAsyncThunk("inbox/getmessages", async(data)=>{
     try{
-        await axios.get(url + "messages/"+ data.sender + "/" + data.receiver, config);
+        let result = await axios.get(url + "messages/"+ data.sender + "/" + data.receiver, config);
+        return result.data;
     }
     catch(err){
        console.log(err);
@@ -38,3 +39,13 @@ export const createMessage = createAsyncThunk("inbox/createmessage", async(data)
        console.log(err);
     }
 })
+
+export const fetchFollowers = createAsyncThunk("inbox/fetchFollowers", async (id)=>{
+    try{
+        let result = await axios.get(url + "followers/" +  id, config);
+        return result.data;
+    }
+    catch(err){
+       console.log(err);
+    }
+});

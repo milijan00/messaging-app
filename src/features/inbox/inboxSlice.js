@@ -1,14 +1,13 @@
 import {createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {getFollowers, getMessages, createMessage} from "./inboxThunk";
+import {getFollowers, getMessages, createMessage, fetchFollowers} from "./inboxThunk";
 
 const initialState = {
+    fetchFollowersStatus : "idle",
+    fetchFollowersError : "",
+    followerFullName : "",
     followers : [
-        {firstname : "Pera", lastName: "Peric", id:2},
-        {firstname : "Milos", lastName: "Lekic", id:3}
     ],
     messages : [
-        {content: "This is one message1", senderId: 1, receiverId: 2},
-        {content: "This is one message2", senderId: 2, receiverId: 1},
     ],
     message : "",
     senderId : 0,
@@ -24,6 +23,9 @@ const initialState = {
 const reducers = {
     onMessageChanged(state, action){
         state.message = action.payload;
+    },
+    onFollowerClicked(state, action){
+        state.followerFullName = action.payload.firstname + " " + action.payload.lastname;
     }
 };
 
@@ -65,6 +67,19 @@ const extraReducers = (builder)=>{
         state.statusCreateMessage = "failed";
         state.errorCreateMessage = action.error.message;
     });
+
+    builder
+    .addCase(fetchFollowers.pending, (state)=>{
+        state.fetchFollowersStatus = "loading"    ;
+    })
+    .addCase(fetchFollowers.fulfilled, (state, action)=>{
+        state.fetchFollowersStatus = "succeeded";
+        state.followers = action.payload;
+    })
+    .addCase(fetchFollowers.rejected, (state, action)=>{
+        state.fetchFollowersStatus = "failed";
+        state.fetchFollowersError = action.error.message;
+    });
 };
 
 const slice = createSlice({
@@ -80,3 +95,6 @@ export const inboxReducer = slice.reducer;
 //Selectors
 export const messagesSelector = state => state.inbox.messages;
 export const followersSelector = state => state.inbox.followers;
+export const fetchFollowersStatusSelector = state => state.inbox.fetchFollowersStatus;
+export const fetchFollowersErrorSelector = state => state.inbox.fetchFollowersError;
+export const followerFullNameSelector = state => state.inbox.followerFullName;

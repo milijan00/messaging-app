@@ -1,17 +1,20 @@
 import React from "react";
 import "./chatRoom.css";
 import { useSelector } from "react-redux";
-import { messagesSelector } from "./inboxSlice";
+import { messagesSelector, followerFullNameSelector } from "./inboxSlice";
 import token from "../../core/token";
 
 
 export default function ChatRoom(props){
 	const messages  = useSelector(messagesSelector);
+	const followerFullName  = useSelector(followerFullNameSelector);
 	return (
             <section className="col-7 px-0" id="messages">
+				{followerFullName && 
 				<article className="green-backcolor text-white p-1">
-					<h3>Pera Peric</h3>
+					<h3>{followerFullName}</h3>
 				</article>
+				}
 				<section  className=" p-2" id="messages-collection">
 					{messages.map((el, index)=>{
 						const justification = token.get().id == el.senderId ? "justify-content-end" : "justify-content-start";
