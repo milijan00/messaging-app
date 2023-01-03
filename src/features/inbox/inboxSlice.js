@@ -26,6 +26,10 @@ const reducers = {
     },
     onFollowerClicked(state, action){
         state.followerFullName = action.payload.firstname + " " + action.payload.lastname;
+        state.receiverId = action.payload.id;
+    },
+    onClearForm(state){
+        state.message = "";
     }
 };
 
@@ -93,7 +97,9 @@ export const inboxActions  = slice.actions;
 export const inboxReducer = slice.reducer;
 
 //Selectors
+export const receiverIdSelector = state => state.inbox.receiverId;
 export const messagesSelector = state => state.inbox.messages;
+export const messageSelector = state => state.inbox.message;
 export const followersSelector = state => state.inbox.followers;
 export const fetchFollowersStatusSelector = state => state.inbox.fetchFollowersStatus;
 export const fetchFollowersErrorSelector = state => state.inbox.fetchFollowersError;

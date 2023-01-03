@@ -49,3 +49,14 @@ export const fetchFollowers = createAsyncThunk("inbox/fetchFollowers", async (id
        console.log(err);
     }
 });
+
+export const deleteMessage = createAsyncThunk("inbox/deletemessage", async (id)=>{
+    try{
+        let result = await axios.delete(url + "messages/" +  id, config);
+        return result.data;
+    }
+    catch(err){
+       console.log(err);
+    }
+})
+
