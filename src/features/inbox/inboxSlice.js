@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {getFollowers, getMessages, createMessage, fetchFollowers} from "./inboxThunk";
+import {getFollowers, getMessages, createMessage, fetchFollowers, deleteMessage} from "./inboxThunk";
 
 const initialState = {
     fetchFollowersStatus : "idle",
@@ -17,7 +17,9 @@ const initialState = {
     statusGetMessages : "idle",
     errorGetMessages : "",
     statusCreateMessage : "idle",
-    errorCreateMessage : ""
+    errorCreateMessage : "",
+    statusDeleteMessage : "idle",
+    errorDeleteMessage : ""
 };
 
 const reducers = {
@@ -84,6 +86,18 @@ const extraReducers = (builder)=>{
         state.fetchFollowersStatus = "failed";
         state.fetchFollowersError = action.error.message;
     });
+
+    builder
+    .addCase(deleteMessage.pending, (state)=>{
+        state.statusDeleteMessage = "loading";
+    })
+    .addCase(deleteMessage.fulfilled, (state)=>{
+        state.statusDeleteMessage = "succeeded";
+    })
+    .addCase(deleteMessage.rejected, (state, action)=>{
+        state.statusDeleteMessage = "failed";
+        state.errorDeleteMessage = action.error.message;
+    })
 };
 
 const slice = createSlice({

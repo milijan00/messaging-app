@@ -4,3 +4,21 @@
 #messages-collection{
 	min-height: 100vh
 }
+
+.message {
+	position:relative;
+}
+
+.message:hover .delete-message{
+	display:block;
+}
+.delete-message{
+	background-color: #000;
+	color: #fff;
+	padding:5px;
+	display:none;
+	position:absolute;
+	/* right: 0; */
+	bottom: 0;
+	cursor: pointer;
+}

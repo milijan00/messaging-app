@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { messagesSelector, followerFullNameSelector, inboxActions, messageSelector, receiverIdSelector } from "./inboxSlice";
 import token from "../../core/token";
 import { createMessage, getMessages } from "./inboxThunk";
+import Message from "./Message";
 // import { useParams } from "react-router-dom";
 
 
@@ -39,11 +40,7 @@ export default function ChatRoom(props){
 					{messages.map((el, index)=>{
 						const justification = token.get().id == el.senderId ? "justify-content-end" : "justify-content-start";
 						return (
-							<div className={'d-flex mb-2  ' + justification} key={index}>
-								<article className="p-2   green-backcolor" >
-									<p className="m-0 text-white">{el.content}</p>
-								</article>
-							</div>
+							<Message justification={justification} content={el.content} id={el.id}  key={index}/>
 						);
 					})}
 				</section>
