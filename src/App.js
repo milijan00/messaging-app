@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from "./features/home/Home";
 import Register from "./features/auth/Register";
 import Inbox from "./features/inbox/Inbox";          
+import EditProfile from './features/editProfile/EditProfile';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signin" element={<Login/>}/> 
           <Route path="/register" element={<Register/>}/> 
           <Route path='/inbox/:id' element={<Inbox/>}/> 
+          <Route path='/editprofile' element={<EditProfile/>}/> 
         </Routes> 
       </section>
       <Footer/>

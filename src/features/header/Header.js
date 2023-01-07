@@ -44,7 +44,7 @@ export default function Header(props){
   </button>
     <ul className="dropdown-menu">
     <li><Link className="dropdown-item text-secondary" to={'/inbox/' + token.get().id}>Inbox</Link></li>
-    <li><Link className="dropdown-item text-secondary" to="#">Change profile</Link></li>
+    <li><Link className="dropdown-item text-secondary" to="/editprofile">Change profile</Link></li>
     <li><a className="dropdown-item text-secondary" href="#" onClick={(e)=>{e.preventDefault(); dispatch(authActions.logout())}}>Logout</a></li>
   </ul></div></li>}
               </ul>
