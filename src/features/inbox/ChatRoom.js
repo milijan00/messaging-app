@@ -40,7 +40,7 @@ export default function ChatRoom(props){
 					{messages.map((el, index)=>{
 						const justification = token.get().id == el.senderId ? "justify-content-end" : "justify-content-start";
 						return (
-							<Message justification={justification} content={el.content} id={el.id}  key={index}/>
+							<Message justification={justification} content={el.content} id={el.id} senderId={el.senderId}  key={index}/>
 						);
 					})}
 				</section>
