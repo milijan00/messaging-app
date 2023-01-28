@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {getFollowers, getMessages, createMessage, fetchFollowers, deleteMessage} from "./inboxThunk";
 
 const initialState = {
+    previousUserId : 0,
     fetchFollowersStatus : "idle",
     fetchFollowersError : "",
     followerFullName : "",
@@ -19,7 +20,8 @@ const initialState = {
     statusCreateMessage : "idle",
     errorCreateMessage : "",
     statusDeleteMessage : "idle",
-    errorDeleteMessage : ""
+    errorDeleteMessage : "",
+    statusStateReseted : "idle"
 };
 
 const reducers = {
@@ -32,6 +34,12 @@ const reducers = {
     },
     onClearForm(state){
         state.message = "";
+    },
+    onUserSigning(state){
+        state = {
+            ...initialState,
+            statusStateReseted : "succeeded"
+        };
     }
 };
 
@@ -118,3 +126,5 @@ export const followersSelector = state => state.inbox.followers;
 export const fetchFollowersStatusSelector = state => state.inbox.fetchFollowersStatus;
 export const fetchFollowersErrorSelector = state => state.inbox.fetchFollowersError;
 export const followerFullNameSelector = state => state.inbox.followerFullName;
+export const previousUserIdSelector = state=> state.inbox.previousUserId;
+export const statusStateResetedSelector = state=> state.inbox.statusStateReseted;

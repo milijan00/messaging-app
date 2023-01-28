@@ -1,3 +1,4 @@
+import {redirect} from "react-router-dom";
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
@@ -9,6 +10,7 @@ import {
     onFirstnameChange,
     onLastnameChange
 } from "./registrationActions";
+import token from "../../core/token";
 
 const initialState = {
     token : localStorage.getItem("access"),
@@ -28,7 +30,8 @@ const initialState = {
         passwordAgain : "",
         idCountry : 0,
         idCity : 0
-    }
+    },
+    statusUserLoggedOut : "idle"
 };
 
 const url = "http://localhost:8888/auth";
@@ -54,6 +57,9 @@ const authSlice = createSlice({
 	name : "auth",
 	initialState,
 	reducers : {
+        onChangeUserLoggedOutStatus(state){
+            state.statusUserLoggedOut = "succeeded";
+        },
 		onChangeEmail(state, action){
 			state.email = action.payload;
 		},
@@ -93,6 +99,7 @@ const authSlice = createSlice({
             state.registrationErrors = {};
         },
         logout(state){
+            localStorage.setItem("previousUser", token.get().id);
             localStorage.removeItem("access");
             state.token = null;
         }

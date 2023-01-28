@@ -16,7 +16,19 @@ const get = ()=>{
         return null;
     }
 }
+/*
+const getPrevious = ()=>{
+    try{
+        return localStorage.getItem("previousUser");
+    }
+    catch(err){
+        return null;
+    }
+}
+*/
 
 export default {
-    get
+    get,
 }
+
+

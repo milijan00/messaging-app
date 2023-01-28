@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {useEffect} from "react";
 import token from "../../core/token";
 import { authActions, tokenSelector } from "../auth/authSlice";
-
+import {redirect, Navigate} from "react-router-dom";
 
 export default function Header(props){
     
@@ -14,12 +14,18 @@ export default function Header(props){
     const links = useSelector(state => state.nav.links);    
     const state = useSelector(state => state.nav.state);
     const error  = useSelector(state => state.nav.error);
+    const statusUserLoggedOut = useSelector(state => state.nav.statusUserLoggedOut);
     const dispatch = useDispatch();
     useEffect(()=>{
         if(state === "idle"){
             dispatch(fetch());
         }
     }, [state, dispatch]); 
+
+    if(statusUserLoggedOut == "idle"){
+        dispatch(authActions.onChangeUserLoggedOutStatus());
+        return <Navigate to="/signin"/>;
+    }
     return (
         <nav className="navbar navbar-expand-lg green-backcolor white-forecolor">
           <div className="container-fluid">
